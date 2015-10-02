@@ -1,0 +1,197 @@
+<!doctype html>
+<html class="" lang="en"> 
+<head>
+    <meta charset="utf-8" />
+    <title>Networking</title>	
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body class="body">
+	<div id="Transport" class=layers><p>Transport Layer</p></div>
+	<div id="Network" class=layers><p>Network Layer</p></div>
+	<div id="Physical" class=layers><p>Physical Layer</p></div>
+	<div id="Properties" class=proplayer></div>
+	
+<script>
+	xml=new XMLHttpRequest();
+	xml.open("GET","xml.xml",false);
+	xml.send(); 
+	xmlDoc=xml.responseXML;
+
+	divCreate(30, "Physical","Device", "DEVICE", "LINK");	
+	divCreate(30, "DataLink","Link", "LINK", "mac-address");
+	nettranscreate("Network", "net_protocol", "net_proto", "ipif", "ADDROBJ", "ADDR");
+	nettranscreate("Transport","trans_protocol", "trans_proto", "", "", "");
+	var divprop = document.createElement("div");
+	divprop.setAttribute('class', 'propdiv');
+
+function divCreate(gap, layername, tagname, id1, id2) {	
+	var devices = xmlDoc.getElementsByTagName(tagname);
+
+	for (var devno = 0; devno < devices.length; devno++) {
+      for (var j = 0; j < devices[devno].childNodes.length; j++) {
+         child = devices[devno].childNodes[j];
+			if (child.nodeName == id1) {
+				link = child.firstChild.nodeValue;
+			}
+			if (child.nodeName == id2) {
+				if (child.firstChild.nodeValue == "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0")
+					addr = "<br/>" + " (" + "unconfigured" + ")"
+				else
+					addr = "<br/>" + " (" + child.firstChild.nodeValue + ")"
+			}
+      }
+		name = link + addr 
+		linkcreate(gap, layername, tagname, devno, name, link);
+	}
+}
+
+function linkcreate(gap, layername, tagname, deviceno, name, objname) {
+	var leftgap = gap + deviceno * 100;
+	var leftstring = leftgap.toString();
+	var st_leftgap = 5 + deviceno * 225;
+	var st_leftstring = st_leftgap.toString();
+	var list = document.createElement("ul");
+	var div = document.getElementById(layername);
+	var listcont = "<li><a> " + name + "</a></li>";
+	var statediv = document.createElement("div");
+	var elements = xmlDoc.getElementsByTagName(tagname);
+
+	statediv.style.left = st_leftstring + "px";
+	statediv.style.top = "10px";
+	element = elements[deviceno];
+	
+	/* Show state information by colour*/
+	for (var j = 0; j < element.childNodes.length; j++) {
+			listitem = document.createElement("li");	
+			listitem[j] = listitem;
+			child = element.childNodes[j];
+			if (child.nodeName == "STATE") {
+				if (child.firstChild.nodeValue == "up" || child.firstChild.nodeValue == "ok") {
+					statediv.setAttribute('class', 'stategreen');
+				}
+				if (child.firstChild.nodeValue == "unknown") {
+					statediv.setAttribute('class', 'stateorange');
+				}
+				if (child.firstChild.nodeValue == "down" || child.firstChild.nodeValue == "fail") {
+					statediv.setAttribute('class', 'statered');
+				}
+			}
+	}
+
+	list.appendChild(statediv);
+	list.setAttribute('class', 'dropdown');
+	list.style.left = leftstring + "px";
+	list.innerHTML += listcont;
+
+	div.appendChild(list);
+	addeventlistner(list, tagname, deviceno, objname, layername, "hover");
+	addeventlistner(list, tagname, deviceno, objname, layername, "click");
+}
+
+
+function nettranscreate(layername, protolayer, protocol, ipif, ipobj, ipaddress) {
+	var layerdiv = document.getElementById(layername);
+	var prototype = xmlDoc.getElementsByTagName(protolayer);
+
+	for (var i = 0; i < prototype.length; i++) {
+	   for (var j = 0; j < prototype[i].childNodes.length; j++) {
+			leftgap = (100 * i);
+			leftstring = leftgap.toString() + "px";
+			child = prototype[i].childNodes[j];
+			if (child.nodeName == protocol) {
+				protoname = child.firstChild.nodeValue;
+				protodiv = document.createElement("div");
+				protodiv.setAttribute('class', 'protocols');
+				protodiv.style.left = leftstring;
+				protodiv.innerHTML = protoname;
+				addeventlistner(protodiv, protolayer, i, "", "", "hover");
+				layerdiv.appendChild(protodiv);
+				break;
+			}
+		}
+	}
+	if (ipif == "ipif")
+		divCreate(500, layername, ipif, ipobj, ipaddress);
+}
+
+
+function propcreate(tagname, instanceno) {
+	var listitem;
+	var proplayer = document.getElementById("Properties");
+	var elements = xmlDoc.getElementsByTagName(tagname);
+	var left = 0;
+	var top = 0;
+
+	element = elements[instanceno];
+
+	for (var j = 0; j < element.childNodes.length; j++) {
+			child = element.childNodes[j];
+			value = child.firstChild.nodeValue;
+			value = value.replace("***", " ") 
+			listcont = '<a>'+ child.nodeName + ' = ' + value + '</a>';
+	
+			// get postion
+			left++;
+			top = j / 8;
+			top = Math.floor(top);
+			top = top * 35;
+			if ((j % 8) == 0)
+					left = 0
+			topgap  = top;
+			leftgap = (190 * left);
+			leftstring = leftgap.toString() + "px";
+			topstring = topgap.toString() + "px";
+
+			listitem = document.createElement("li");	
+			listitem.setAttribute('class', 'propertylist');
+			listitem.style.left = leftstring;
+			listitem.style.top = topstring;			
+			listitem.innerHTML += listcont;
+
+			divprop.appendChild(listitem)
+	}
+	proplayer.appendChild(divprop);
+}
+
+function prophide() {
+	divprop.innerHTML = "";
+}
+
+function addeventlistner(obj, tagname, instanceno, objname, layername, type) 
+{
+	var hoverfunc = function(){propcreate(tagname, instanceno);};
+	var pophidefunc = function(){prophide();};
+	var clickfunc = function(){clickbutton(obj, objname, layername);};
+	
+	if (type == "hover"){
+		if(typeof addEventListener != "undefined") {
+			obj.addEventListener("mouseout", pophidefunc, false);
+			obj.addEventListener("mouseover", hoverfunc, false);
+		} else if (typeof attachEvent != "undefined") {
+			obj.attachEvent("onmouseout", pophidefunc);
+			obj.attachEvent("onmouseover", hoverfunc);
+		} else {	
+			obj.onmousover = pophidefunc;
+			obj.onmousout = hoverfunc;
+		}
+	}
+	if (type == "click"){
+		if(typeof addEventListener != "undefined")
+			obj.addEventListener("click", clickfunc);
+		else if (typeof attachEvent != "undefined")
+			obj.attachEvent("click", clickfunc);
+		else	
+			obj.onclick = clickfunc;
+	}
+}
+
+function clickbutton(obj, objname, layername) {
+	var newwin = window.open("dcv_net_process.html", "", "");
+	newwin.parentlink = objname; // parentlinkname is a variable in child.html
+	newwin.parentlayer = layername; // parentlayername is a variable in child.html
+	newwin.startxml();
+}
+
+</script>
+</body>
+</html>
