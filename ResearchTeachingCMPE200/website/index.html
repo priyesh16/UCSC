@@ -17,14 +17,14 @@
 	xml.send(); 
 	xmlDoc=xml.responseXML;
 
-	divCreate(30, "Physical","Device", "DEVICE", "LINK");	
-	divCreate(30, "DataLink","Link", "LINK", "mac-address");
+	divCreate(30, "Physical","Device", "DEVICE");	
+	divCreate(30, "DataLink","Link", "info");
 	nettranscreate("Network", "net_protocol", "net_proto", "ipif", "ADDROBJ", "ADDR");
 	nettranscreate("Transport","trans_protocol", "trans_proto", "", "", "");
 	var divprop = document.createElement("div");
 	divprop.setAttribute('class', 'propdiv');
 
-function divCreate(gap, layername, tagname, id1, id2) {	
+function divCreate(gap, layername, tagname, id1) {	
 	var devices = xmlDoc.getElementsByTagName(tagname);
 
 	for (var devno = 0; devno < devices.length; devno++) {
@@ -33,15 +33,9 @@ function divCreate(gap, layername, tagname, id1, id2) {
 			if (child.nodeName == id1) {
 				link = child.firstChild.nodeValue;
 			}
-			if (child.nodeName == id2) {
-				if (child.firstChild.nodeValue == "0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0:0")
-					addr = "<br/>" + " (" + "unconfigured" + ")"
-				else
-					addr = "<br/>" + " (" + child.firstChild.nodeValue + ")"
-			}
       }
-		name = link + addr 
-		linkcreate(gap, layername, tagname, devno, name, link);
+		name = link + "<br/>" 
+		linkcreate(10, layername, tagname, devno, name, link);
 	}
 }
 
@@ -56,29 +50,13 @@ function linkcreate(gap, layername, tagname, deviceno, name, objname) {
 	var statediv = document.createElement("div");
 	var elements = xmlDoc.getElementsByTagName(tagname);
 
+
 	statediv.style.left = st_leftstring + "px";
 	statediv.style.top = "10px";
 	element = elements[deviceno];
-	
-	/* Show state information by colour*/
-	for (var j = 0; j < element.childNodes.length; j++) {
-			listitem = document.createElement("li");	
-			listitem[j] = listitem;
-			child = element.childNodes[j];
-			if (child.nodeName == "STATE") {
-				if (child.firstChild.nodeValue == "up" || child.firstChild.nodeValue == "ok") {
-					statediv.setAttribute('class', 'stategreen');
-				}
-				if (child.firstChild.nodeValue == "unknown") {
-					statediv.setAttribute('class', 'stateorange');
-				}
-				if (child.firstChild.nodeValue == "down" || child.firstChild.nodeValue == "fail") {
-					statediv.setAttribute('class', 'statered');
-				}
-			}
-	}
 
-	list.appendChild(statediv);
+	/* Show state information by colour*/
+
 	list.setAttribute('class', 'dropdown');
 	list.style.left = leftstring + "px";
 	list.innerHTML += listcont;
@@ -87,6 +65,7 @@ function linkcreate(gap, layername, tagname, deviceno, name, objname) {
 	addeventlistner(list, tagname, deviceno, objname, layername, "hover");
 	addeventlistner(list, tagname, deviceno, objname, layername, "click");
 }
+
 
 
 function nettranscreate(layername, protolayer, protocol, ipif, ipobj, ipaddress) {
@@ -110,8 +89,6 @@ function nettranscreate(layername, protolayer, protocol, ipif, ipobj, ipaddress)
 			}
 		}
 	}
-	if (ipif == "ipif")
-		divCreate(500, layername, ipif, ipobj, ipaddress);
 }
 
 
@@ -124,11 +101,11 @@ function propcreate(tagname, instanceno) {
 
 	element = elements[instanceno];
 
-	for (var j = 0; j < element.childNodes.length; j++) {
+	j = 1;
 			child = element.childNodes[j];
 			value = child.firstChild.nodeValue;
 			value = value.replace("***", " ") 
-			listcont = '<a>'+ child.nodeName + ' = ' + value + '</a>';
+			listcont = '<a>'+  value + '</a>';
 	
 			// get postion
 			left++;
@@ -149,7 +126,7 @@ function propcreate(tagname, instanceno) {
 			listitem.innerHTML += listcont;
 
 			divprop.appendChild(listitem)
-	}
+	
 	proplayer.appendChild(divprop);
 }
 

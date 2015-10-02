@@ -1,6 +1,18 @@
 <?xml version="1.0" ?><root>
 <Networks>
-<PhysicalLayer><Device><LOC>PCIE1/PORT2</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net11</LINK><DEVICE>ibp1</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>/SYS/MB</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>up</STATE><LINK>net1</LINK><DEVICE>igb1</DEVICE><FLAGS>-----</FLAGS><SPEED>1000</SPEED></Device><Device><LOC>PCIE4/PORT1</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net6</LINK><DEVICE>ibp2</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>/SYS/MB</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>up</STATE><LINK>net0</LINK><DEVICE>igb0</DEVICE><FLAGS>-----</FLAGS><SPEED>100</SPEED></Device><Device><LOC>/SYS/MB</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>up</STATE><LINK>net3</LINK><DEVICE>igb3</DEVICE><FLAGS>-----</FLAGS><SPEED>1000</SPEED></Device><Device><LOC> </LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>up</STATE><LINK>net5</LINK><DEVICE>usbecm2</DEVICE><FLAGS>-----</FLAGS><SPEED>10</SPEED></Device><Device><LOC>PCIE4/PORT2</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net7</LINK><DEVICE>ibp3</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>/SYS/MB</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>up</STATE><LINK>net2</LINK><DEVICE>igb2</DEVICE><FLAGS>-----</FLAGS><SPEED>1000</SPEED></Device><Device><LOC>PCIE1/PORT1</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net10</LINK><DEVICE>ibp0</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>PCIE0/PORT1</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net8</LINK><DEVICE>ibp4</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>PCIE0/PORT2</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net9</LINK><DEVICE>ibp5</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>PCIE3/PORT1</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net12</LINK><DEVICE>ibp6</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC>PCIE3/PORT2</LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Infiniband</MEDIA><STATE>up</STATE><LINK>net13</LINK><DEVICE>ibp7</DEVICE><FLAGS>-----</FLAGS><SPEED>32000</SPEED></Device><Device><LOC> </LOC><ZONE>global</ZONE><DUPLEX>full</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>up</STATE><LINK>net4</LINK><DEVICE>vsw0</DEVICE><FLAGS>-----</FLAGS><SPEED>1000</SPEED></Device><Device><LOC> </LOC><ZONE>global</ZONE><DUPLEX>unknown</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>down</STATE><LINK>net15</LINK><DEVICE>vnet0</DEVICE><FLAGS>-----</FLAGS><SPEED>0</SPEED></Device><Device><LOC> </LOC><ZONE>global</ZONE><DUPLEX>unknown</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>down</STATE><LINK>net16</LINK><DEVICE>vnet1</DEVICE><FLAGS>-----</FLAGS><SPEED>0</SPEED></Device><Device><LOC> </LOC><ZONE>global</ZONE><DUPLEX>unknown</DUPLEX><MEDIA>Ethernet</MEDIA><STATE>down</STATE><LINK>net17</LINK><DEVICE>vnet2</DEVICE><FLAGS>-----</FLAGS><SPEED>0</SPEED></Device>
+<PhysicalLayer>
+<Device>
+	<info>I am a first year grad student at UCSC, majoring in </info>
+	<DEVICE>About</DEVICE>
+</Device>
+<Device>
+	<info>n</info>
+	<DEVICE>Interests</DEVICE>
+</Device>
+<Device>
+	<info></info>
+	<DEVICE>Papers</DEVICE>
+</Device>
 </PhysicalLayer>
-
-</Networks></root>
+</Networks>
+</root>
